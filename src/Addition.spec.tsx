@@ -26,6 +26,6 @@ describe("Addition", () => {
 
   it("should show the iteraded crossfoot if there's one", () => {
     render(<Addition digits={[26, 26, 26]} />);
-    screen.getByText("26 + 26 + 26 = 99 (Iter. QS: 7 + 8 = 15; 1 + 5 = 6)");
+    screen.getByText("26 + 26 + 26 = 78 (Iter. QS: 7 + 8 = 15; 1 + 5 = 6)");
   });
 });

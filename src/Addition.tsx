@@ -1,18 +1,13 @@
 import React from "react";
+import { crossfoots, splitNumber } from "./Addition.logic";
 
 type AdditionProps = { digits: number[] };
 
-const renderCalculation = (digits: number[]) => {
+const renderCalculation = (val: number[] | number) => {
+  const digits = typeof val === "number" ? splitNumber(val) : val;
   const calc = digits.join(" + ");
   const sum = digits.reduce((a, b) => a + b);
   return `${calc} = ${sum}`;
-};
-
-const splitNumber = (val: number) => {
-  return val
-    .toFixed()
-    .split("")
-    .map((c) => Number(c));
 };
 
 export const Addition = ({ digits }: AdditionProps) => {
@@ -22,12 +17,20 @@ export const Addition = ({ digits }: AdditionProps) => {
 
   const calc = digits.join(" + ");
   const sum = digits.reduce((a, b) => a + b);
-  const crossfoots = [];
+
+  let crossfoots1 = crossfoots(sum);
+  let cfText = "";
+  if (crossfoots1.length == 1) {
+    cfText = `(QS: ${renderCalculation(crossfoots1[0])})`;
+  } else if (crossfoots1.length > 1) {
+    const sums = crossfoots1.map((cf) => renderCalculation(cf)).join("; ");
+    cfText = `(Iter. QS: ${sums})`;
+  }
 
   return (
     <div className="row">
       <div className="two columns">Addition:</div>
-      <div className="ten columns"> {`${calc} = ${sum} ${crossfoot}`}</div>
+      <div className="ten columns">{`${calc} = ${sum} ${cfText}`}</div>
     </div>
   );
 };
