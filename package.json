@@ -20,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
-    "lint": "eslint --fix src",
+    "lint": "eslint --fix --max-warnings=0 src ",
     "prepare": "husky install"
   },
   "eslintConfig": {
