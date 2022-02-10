@@ -1,18 +1,21 @@
 import React, { ChangeEvent, useState } from "react";
-import { NumberOption, NumberMappingRadio } from "./NumberMappingRadio";
+import { NumberMappingRadio, NumberOption } from "./NumberMappingRadio";
 import { useNumberMapping } from "./logic";
+import { Addition } from "./calculations/addition/Addition";
+import { Subtraction } from "./calculations/subtraction/Subtraction";
+import { Multiplication } from "./calculations/multiplication/Multiplication";
+import { Division } from "./calculations/division/Division";
 
 function App() {
   const [word, setWord] = useState("");
   const [option, setOption] = useState<NumberOption>("A1");
 
-  const numberMapping = useNumberMapping(word, option);
+  const letterValues = useNumberMapping(word, option);
   const optionChange = (e: ChangeEvent<HTMLInputElement>) => {
     setOption(e.currentTarget.value as NumberOption);
   };
 
   const letters = word.split("");
-  const letterValues = letters.map((char) => char.charCodeAt(0));
 
   return (
     <div className="container">
@@ -76,27 +79,39 @@ function App() {
         <tbody>
           <tr>
             {letterValues.map((c, idx) => (
-              <td key={idx}>{calcNumber(c)}</td>
+              <td key={idx}>{c}</td>
             ))}
           </tr>
         </tbody>
       </table>
-      <div className="row">
-        <div className="two columns">Addition:</div>
-        <div className="ten columns"></div>
-      </div>
-      <div className="row">
-        <div className="two columns">Subtraktion:</div>
-        <div className="ten columns"></div>
-      </div>
-      <div className="row">
-        <div className="two columns">Multiplikation:</div>
-        <div className="ten columns"></div>
-      </div>
-      <div className="row">
-        <div className="two columns">Division:</div>
-        <div className="ten columns"></div>
-      </div>
+      {letterValues.length > 0 && (
+        <div>
+          <div className="row">
+            <div className="two columns">Addition:</div>
+            <div className="ten columns">
+              <Addition digits={letterValues} />
+            </div>
+          </div>
+          <div className="row">
+            <div className="two columns">Subtraktion:</div>
+            <div className="ten columns">
+              <Subtraction digits={letterValues} />
+            </div>
+          </div>
+          <div className="row">
+            <div className="two columns">Multiplikation:</div>
+            <div className="ten columns">
+              <Multiplication digits={letterValues} />
+            </div>
+          </div>
+          <div className="row">
+            <div className="two columns">Division:</div>
+            <div className="ten columns">
+              <Division digits={letterValues} />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -27,10 +27,5 @@ export const Addition = ({ digits }: AdditionProps) => {
     cfText = `(Iter. QS: ${sums})`;
   }
 
-  return (
-    <div className="row">
-      <div className="two columns">Addition:</div>
-      <div className="ten columns">{`${calc} = ${sum} ${cfText}`}</div>
-    </div>
-  );
+  return <>{`${calc} = ${sum} ${cfText}`}</>;
 };
